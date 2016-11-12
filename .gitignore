@@ -1,0 +1,11 @@
+*.pyc
+*~
+__pychache__
+.DS_Store
+
+# Not including these files for now
+corenlp/*
+mysql_connection.py
+ner/*
+nlp_sentence.py
+

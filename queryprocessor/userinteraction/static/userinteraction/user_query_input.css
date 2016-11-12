@@ -1,0 +1,18 @@
+h1 {
+  text-align: center;
+}
+
+textarea {
+  margin: 20px;
+  width: 100%;
+}
+
+input#submitButton {
+  float: right;
+}
+
+.user_query_input {
+  margin: auto;
+  padding: 20px;
+  width: 50%;
+}

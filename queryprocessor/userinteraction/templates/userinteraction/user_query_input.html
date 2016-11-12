@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{% static 'userinteraction/user_query_input.css' %}">
+    <title>User Query</title>
+  </head>
+  <body>
+    <h1>User Query</h1>
+    <form class="user_query_input" action="/result/" method="post">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+      <div class="fieldWrapper">
+        {{ form.query.label_tag }}
+        <br>
+        {{ form.query }}
+      </div>
+      <input id="submitButton" type="submit" name="submit" value="Submit">
+    </form>
+  </body>
+</html>

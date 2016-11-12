@@ -1,0 +1,8 @@
+This repository contains the work for the CS764 project.
+
+The project is about converting human understandable statements to queries
+for the system to process. Involves a mix of NLP and database concepts.
+
+The form where the user would enter the statement is created using django.
+
+The README will be updated as the project progresses.

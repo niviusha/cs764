@@ -1,5 +1,5 @@
 """
-This file is mainly used to check the functionality of the 
+This file is mainly used to check the functionality of the
 other database features in the database_parser folder
 """
 from __future__ import print_function
@@ -7,6 +7,7 @@ from connect_to_mysql import MySQLConn
 from database_processor import DatabaseOps
 from table_processor import TableOps
 import helper
+import json
 
 if __name__ == '__main__':
   # checking the MySQL connection and Database Ops
@@ -31,3 +32,5 @@ if __name__ == '__main__':
   print(tbobj.get_primary_key("airport"))
   print(tbobj.get_foreign_key("route"))
   print(dbobj.get_join_path_dictionary())
+
+#  print(tbobj.get_table_column_value_data('airport'))

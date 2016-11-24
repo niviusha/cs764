@@ -29,6 +29,19 @@ class SentenceOps:
         ner_portion.append(self._parse_nltk_tree(entity))
     return ner_portion
 
+  # Get the nouns in the sentence
+  def get_nouns(self, sentence=None):
+    pos_tagged = self.get_pos_tagged(sentence)
+    nouns = []
+    for pair in pos_tagged:
+      if "NN" in pair[1]:
+        nouns.append(pair[0])
+    return nouns
+
+  # Returns the list of synonyms for a word using wordnet
+  def get_synonyms(self, word):
+    return set([str(syn.name().split('.')[0]) for syn in wordnet.synsets(word)])
+
   def _get_sentence(self, sentence):
     if sentence == None:
       return self.sentence
@@ -38,12 +51,10 @@ class SentenceOps:
     sentence_part = ' '.join([part[0] for part in tree_instance.leaves()])
     return tuple([tree_instance.label(), sentence_part])
 
-  # Returns the list of synonyms for a word using wordnet
-  def get_synonyms(self, word):
-    return set([str(syn.name().split('.')[0]) for syn in wordnet.synsets(word)])
-
 if __name__ == '__main__':
-  sentence = "At eight o'clock on Thursday morning Arthur James didn't feel very good in India."
+  sentence = "How many airports in US ?"
   obj = SentenceOps(sentence)
   print(obj.get_named_entities())
+  print(obj.get_pos_tagged())
   print(obj.get_synonyms('dog'))
+  print(obj.get_nouns())

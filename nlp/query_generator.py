@@ -53,11 +53,7 @@ class QueryGenerator:
       for col in cols:
         col_values = list()
         for val in  self.tbops.get_distinct_column_data(col, rel):
-            try:
-              if '"' in val:
-                col_values.append(val[1:-1])
-            except:
-                col_values.append(val)
+            col_values.append(val)
         for pos_word in possible_attribute_value:
             pos_word_syn = self.sentops.get_synonyms(pos_word)
             pos_word_syn.add(pos_word)

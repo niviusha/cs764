@@ -20,3 +20,5 @@ For the route table:
 create table Route( airline char(20), airline_id int, source_airport char(20), source_id int, dest_airport char(20), dest_id int, codeshare char(20), stops int, equipment int, foreign key (airline_id) references airline(id), foreign key (source_id) references airport(id), foreign key (dest_id) references airport(id));
 
 mysqlimport --fields-terminated-by=, --local -u root -p dummy route.csv
+
+The original files obtained from the site correspond to the files with _original.csv. These files were then cleaned using the clean_csv_files.

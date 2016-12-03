@@ -84,7 +84,10 @@ class QueryGenerator:
     relations = self.get_relevant_relations()
     entities = self.sentops.get_named_entities()
     attribute_relation = self.filter_attr_pairing(self.get_compatible_attributes())
-    query = 'select * from ' + ','.join(relations) + ' where ' + self.generate_where_string(attribute_relation)
+    where_string = self.generate_where_string(attribute_relation)
+    if len(where_string) != 0:
+        where_string = ' where ' + where_string
+    query = 'select * from ' + ','.join(relations) + where_string
     return query
 
   def generate_where_string(self, attribute_relation):
@@ -103,11 +106,10 @@ class QueryGenerator:
     final_pairs = []
     entity_map = self.get_relevant_entity_map()
     for (k,v) in attr_pairing.items():
-        if len(v) > 1:
-            for vals in v:
-                if vals[0].split('.')[1] in entity_map[k]:
-                    final_pairs.append(vals)
-                    break
+        for vals in v:
+            if vals[0].split('.')[1] in entity_map[k]:
+                final_pairs.append(vals)
+                break
     return final_pairs
 
   def _check_presence(self, word, values):
@@ -127,9 +129,9 @@ class QueryGenerator:
             return val
     return None
 
-if __name__ == "__main__":
-    sentence = "How many airports in US?"
+def generate_query_and_print(sentence):
     query_gen = QueryGenerator(sentence)
-    query = query_gen.generate_query()
-    print(sentence)
-    print(query)
+    print(sentence + "\n", query_gen.generate_query())
+
+if __name__ == "__main__":
+    generate_query_and_print("How many airports in US?")

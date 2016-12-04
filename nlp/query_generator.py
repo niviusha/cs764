@@ -37,6 +37,7 @@ class QueryGenerator:
     relevant_relations = set()
     for rel in possible_rels:
       rel_synonyms = self.sentops.get_synonyms(rel)
+      rel_synonyms.add(rel)
       for word in rel_synonyms:
         if word in all_relations:
           relevant_relations.add(word)
@@ -85,15 +86,12 @@ class QueryGenerator:
         for val in  self.tbops.get_distinct_column_data(col, rel):
             col_values.append(val)
         for pos_word in possible_attribute_value:
-            pos_word_syn = self.sentops.get_synonyms(pos_word)
-            pos_word_syn.add(pos_word)
             word = self._check_presence(pos_word, col_values)
             if word != None:
                 if pos_word not in attr_pairing:
                     attr_pairing[pos_word] = list()
                 attr_pairing[pos_word].append((rel + '.' + col, word))
                 break
-    self.filter_attr_pairing(attr_pairing)
     return attr_pairing
 
   def get_relevant_entity_map(self):
@@ -148,9 +146,9 @@ class QueryGenerator:
   def _check_presence(self, word, values):
     if word in values:
         return word
-    if type(word) != type(values[0]):
-        return None
     for val in values:
+        if type(word) != type(val):
+            continue
         if val == None:
             continue
         if word.lower() == val.lower():
@@ -167,5 +165,6 @@ def generate_query_and_print(sentence):
     print(sentence + "\n", query_gen.generate_query())
 
 if __name__ == "__main__":
-    generate_query_and_print("How many airports are there in US?")
-    generate_query_and_print("What cities have airports in US?")
+    #generate_query_and_print("How many airports are there in US?")
+    #generate_query_and_print("What cities have airports in US?")
+    generate_query_and_print("What airlines run in US?")

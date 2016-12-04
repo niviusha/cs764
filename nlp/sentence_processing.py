@@ -34,7 +34,7 @@ class SentenceOps:
     pos_tagged = self.get_pos_tagged(sentence)
     nouns = []
     for pair in pos_tagged:
-      if "NN" in pair[1]:
+      if "NN" in pair[1] or pair[1] == "VBZ":
         nouns.append(pair[0])
     return nouns
 
@@ -52,7 +52,7 @@ class SentenceOps:
     return tuple([tree_instance.label(), sentence_part])
 
 if __name__ == '__main__':
-  sentence = "How many airports in US ?"
+  sentence = "What airlines run in the US?"
   obj = SentenceOps(sentence)
   print(obj.get_named_entities())
   print(obj.get_pos_tagged())

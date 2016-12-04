@@ -42,8 +42,38 @@ class QueryGenerator:
           relevant_relations.add(word)
     return relevant_relations
 
+  # If an attribute is specified for the tables
+  def get_specified_attributes(self):
+    possible_attribute_value = self.sentops.get_nouns()
+    relevant_relations = self.get_relevant_relations()
+    rel_attr_of_relations = {}
+    for rel in relevant_relations:
+        cols = self.tbops.get_columns(rel)
+        for attr in possible_attribute_value:
+            attr_syn = self.sentops.get_synonyms(attr)
+            attr_syn.add(attr)
+            for col in cols:
+                if col in attr_syn:
+                    if not rel_attr_of_relations.has_key(rel):
+                        rel_attr_of_relations[rel] = set()
+                    rel_attr_of_relations[rel].add(col)
+                    # break
+    return rel_attr_of_relations
+
+  # Get the string for the specified attributes
+  def get_specified_attribute_string(self):
+    attributes = self.get_specified_attributes()
+    if len(attributes) == 0:
+        return None
+    attr_str = list()
+    for (k,v) in attributes.items():
+        for val in v:
+            attr_str.append(k + '.' + val)
+    return ','.join(attr_str)
+
   # Gets the attributes and the value that should
-  # match with the specific query
+  # match with the specific query especially for the
+  # where clause
   def get_compatible_attributes(self):
     possible_attribute_value = self.sentops.get_nouns()
     relevant_relation = self.get_relevant_relations()
@@ -84,10 +114,13 @@ class QueryGenerator:
     relations = self.get_relevant_relations()
     entities = self.sentops.get_named_entities()
     attribute_relation = self.filter_attr_pairing(self.get_compatible_attributes())
+    attribute_string = self.get_specified_attribute_string()
+    if attribute_string is None:
+        attribute_string = '*'
     where_string = self.generate_where_string(attribute_relation)
     if len(where_string) != 0:
         where_string = ' where ' + where_string
-    query = 'select * from ' + ','.join(relations) + where_string
+    query = 'select '+ attribute_string +' from ' + ','.join(relations) + where_string
     return query
 
   def generate_where_string(self, attribute_relation):
@@ -134,4 +167,5 @@ def generate_query_and_print(sentence):
     print(sentence + "\n", query_gen.generate_query())
 
 if __name__ == "__main__":
-    generate_query_and_print("How many airports in US?")
+    generate_query_and_print("How many airports are there in US?")
+    generate_query_and_print("What cities have airports in US?")

@@ -88,5 +88,5 @@ class TableOps:
   # Inserts the values into tables. The values are comma separated
   # corresponding to a column
   def insert_into_table(self, table_name, values):
-    query = "insert into " + table_name + " values (" + values + ")"
+    query = "insert into " + str(table_name) + " values (" + str(values) + ")"
     return self.conn.execute(query)

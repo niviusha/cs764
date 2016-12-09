@@ -19,6 +19,7 @@ class MySQLConn:
       raise
     else:
       #print('Connection to ' + kwargs['db'] + ' established.')
+      pass
 
   # For simply executing queries
   def execute(self, query):

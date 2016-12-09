@@ -11,8 +11,8 @@
     <h1>Result</h1>
     <div class="sqlversion">
       <p>
-        The statement was translated into the following query: <br/>
-        <span class="bold">{{query}}</span>
+        <span class="bold">The statement was translated into the following query:</span> <br/>
+        {{query}}
       </p>
       <form class="user_query_input" action="/train/" method="post">
         {% csrf_token %}
@@ -27,8 +27,14 @@
     </div>
     <div class="result">
       <p>
-        The result of the query is: <br/>
-        <span class="result">{{result}}</span>
+        <span class="bold">The result of the query is: </span><br/>
+        <!-- {{result}} -->
+        {% for row in result %}
+          {% for item in row %}
+            {{item}},
+          {% endfor %}
+          <br/>
+        {% endfor %}
       </p>
     </div>
   </body>

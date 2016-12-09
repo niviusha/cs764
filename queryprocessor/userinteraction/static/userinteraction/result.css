@@ -3,3 +3,7 @@ p {
   padding: 20px;
   width: 50%;
 }
+
+span.bold {
+  font-weight: bold;
+}

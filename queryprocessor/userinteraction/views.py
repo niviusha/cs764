@@ -25,7 +25,7 @@ def get_results(request):
             return render(request, 'userinteraction/result.html', {
                 'query': query,
                 'form': ReformQuery(request.GET),
-                'result': str(result),
+                'result': result,
             })
     else:
         form = UserQuery(request.GET)

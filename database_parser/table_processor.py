@@ -84,3 +84,9 @@ class TableOps:
 #      print(table_data[table_name][column])
     # This is not json serializable
     return table_data
+
+  # Inserts the values into tables. The values are comma separated
+  # corresponding to a column
+  def insert_into_table(self, table_name, values):
+    query = "insert into " + table_name + " values (" + values + ")"
+    return self.conn.execute(query)

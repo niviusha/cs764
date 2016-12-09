@@ -42,6 +42,9 @@ class SentenceOps:
   def get_synonyms(self, word):
     return set([str(syn.name().split('.')[0]) for syn in wordnet.synsets(word)])
 
+  def set_sentence(self, sentence):
+      self.sentence = sentence
+
   def _get_sentence(self, sentence):
     if sentence == None:
       return self.sentence

@@ -1,14 +1,10 @@
-from django.shortcuts import render, redirect
-from django.http import HttpResponseRedirect
-<<<<<<< HEAD
-from django.views.generic.base import TemplateView
-from forms import UserQuery
-=======
-from forms import UserQuery, ReformQuery
 from sys import path
 path.append("../nlp")
 from final_wrapper import Wrapper
->>>>>>> refs/remotes/origin/master
+from django.shortcuts import render, redirect
+from django.views.generic.base import TemplateView
+from forms import UserQuery, ReformQuery
+
 
 sentence = None
 query = None
@@ -35,16 +31,10 @@ def get_results(request):
             })
     else:
         form = UserQuery(request.GET)
-<<<<<<< HEAD
-    return render(request, 'userinteraction/user_query_input.html', {
-        'form': form
-    })
-
+    return redirect("/user_query_input")
 
 class ChatterBotAppView(TemplateView):
     template_name = "userinteraction/app.html"
-=======
-    return redirect("/user_query_input")
 
 def train_system(request):
   if request.method == 'POST':
@@ -54,4 +44,4 @@ def train_system(request):
       query = form.cleaned_data['query']
     Wrapper.train_sentence(sentence, query)
   return redirect("/user_query_input")
->>>>>>> refs/remotes/origin/master
+

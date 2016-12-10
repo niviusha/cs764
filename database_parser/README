@@ -1,0 +1,4 @@
+This folder contains the files for parsing the database and the tables.
+It has many functions to help fetch all the relations and the tables.
+It also allows to obtain the attributes and the values. In short, it 
+gives access to the metadata and the data of the tables and the relations.

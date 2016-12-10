@@ -5,4 +5,32 @@ for the system to process. Involves a mix of NLP and database concepts.
 
 The form where the user would enter the statement is created using django.
 
-The README will be updated as the project progresses.
+Databases:
+
+The system requires that you have 3 databases in your system. I have
+the following databases:
+  trialdb: for django
+  dummy: for storing the database on which the sentences will be formed
+  train: for training the dataset
+
+  More about these databases is present in database_parser/databases
+
+Software Requirements:
+
+The softwares and their versions are specified in the requirements.txt
+file. Most importantly, for the nltk, once you have the software installed,
+it is required to get the database and the descriptors for it. This can
+be done by starting the python shell and running the command "nltk.download()".
+Download all the versions.
+
+Running the system from the terminal:
+
+Running the nlp/final_wrapper.py would run the entire system from the terminal.
+
+Running from django:
+
+Start your django server:
+  python manage.py runserver
+
+Go to 127.0.0.1/user_query_input
+The system follows from there

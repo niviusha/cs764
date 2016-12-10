@@ -5,3 +5,6 @@ class UserQuery(forms.Form):
 
 class ReformQuery(forms.Form):
     query = forms.CharField(label="Enter the correct query that should have been evaluated", widget=forms.Textarea, required=True)
+
+class ChatterBotForm(forms.Form):
+    query = forms.CharField(label="Input")

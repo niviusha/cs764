@@ -2,3 +2,11 @@
 .list-group-item:nth-child(even) {
     background-color: #eee;
 }
+
+form {
+  padding: 50px;
+}
+
+input#id_query {
+  visibility: hidden;
+}

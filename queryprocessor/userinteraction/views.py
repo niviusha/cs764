@@ -1,9 +1,10 @@
 from sys import path
 path.append("../nlp")
-from nlp.final_wrapper import Wrapper
+from final_wrapper import Wrapper
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.generic.base import TemplateView
-from forms import UserQuery, ReformQuery
+from forms import *
 
 
 sentence = None
@@ -40,10 +41,20 @@ def check_query(suggested_query):
         'result': result,
     })
 
+def get_chatterbot_view(request):
+    return render(request, 'userinteraction/app.html', {
+        'form': ChatterBotForm(request.GET)
+    })
 
-
-class ChatterBotAppView(TemplateView):
-    template_name = "userinteraction/app.html"
+def get_chatterbot_trainer(request):
+    if request.method == "POST":
+        form = ChatterBotForm(request.POST)
+        global sentence, query
+        if form.is_valid() and form.cleaned_data['query'].strip():
+            query = form.cleaned_data['query']
+    if query != None and sentence != None:
+        Wrapper.train_sentence(sentence, query)
+    return redirect("/user_query_input")
 
 def train_system(request):
   if request.method == 'POST':
@@ -53,4 +64,3 @@ def train_system(request):
       query = form.cleaned_data['query']
     Wrapper.train_sentence(sentence, query)
   return redirect("/user_query_input")
-

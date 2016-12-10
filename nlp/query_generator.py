@@ -12,8 +12,16 @@ from table_processor import TableOps
 from sentence_processing import SentenceOps
 
 class QueryGenerator:
+<<<<<<< HEAD
   def __init__(self, sentence):
     self.conn = MySQLConn(user='root', passwd='Madison123$', host='', db='flights')
+=======
+  def __init__(self, sentence = None, conn = None):
+    if conn == None:
+      self.conn = MySQLConn(user='', passwd='', host='', db='')
+    else:
+      self.conn = conn
+>>>>>>> refs/remotes/origin/master
     self.dbops = DatabaseOps(self.conn)
     self.tbops = TableOps(self.conn)
     self.sentops = SentenceOps(sentence)
@@ -26,7 +34,7 @@ class QueryGenerator:
   # selects with some condition
   # there are two type: select and count
   def get_query_type(self):
-    if "how" in sentence:
+    if "how" in self.sentence.lower():
       return "count"
     return "select"
 
@@ -109,6 +117,10 @@ class QueryGenerator:
       entity_map[entity[1]] = entity_relevant[entity[0].lower()]
     return entity_map
 
+  def set_sentence(self, sentence):
+      self.sentence = sentence
+      self.sentops = SentenceOps(sentence)
+
   def generate_query(self):
     relations = self.get_relevant_relations()
     entities = self.sentops.get_named_entities()
@@ -116,11 +128,20 @@ class QueryGenerator:
     attribute_string = self.get_specified_attribute_string()
     if attribute_string is None:
         attribute_string = '*'
+        if self.get_query_type() == "count":
+            attribute_string = "count(*)"
+    elif "distinct" in self.sentence:
+        attribute_string = "distinct " + attribute_string
     where_string = self.generate_where_string(attribute_relation)
     if len(where_string) != 0:
         where_string = ' where ' + where_string
     query = 'select '+ attribute_string +' from ' + ','.join(relations) + where_string
     return query
+
+  def execute_query(self):
+    query = self.generate_query()
+    result = self.conn.execute_and_retrieve_data(query)
+    return result
 
   def generate_where_string(self, attribute_relation):
     string_types = ['varchar', 'char']
@@ -168,4 +189,8 @@ def generate_query_and_print(sentence):
 if __name__ == "__main__":
     #generate_query_and_print("How many airports are there in US?")
     generate_query_and_print("What cities have airports in US?")
+<<<<<<< HEAD
     #generate_query_and_print("which airline have route from US to India?")
+=======
+    # generate_query_and_print("How many airlines run in US?")
+>>>>>>> refs/remotes/origin/master

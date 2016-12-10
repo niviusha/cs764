@@ -1,0 +1,18 @@
+sentence_processing.py
+
+This file does all the processing of the given sentence. It analyses what 
+tokens are present in the file and extracts usefule information from them.
+
+query_generator.py
+
+This is the main file that generates the query given the sentence
+
+sentence_trainer.py
+
+This file is for training purposes. It stores the sentence and the query in
+the train.train table thereby making it easy to fetch data for training 
+the system.
+
+final_wrapper.py
+
+This file runs the entire system through the terminal.

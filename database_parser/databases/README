@@ -1,3 +1,5 @@
+For constructing the dummy database:
+
 The .csv file correspond to the tables in the databases.
 The database was obtained from: http://openflights.org/data.html
 The database into which the table data was imported was named dummy.
@@ -22,3 +24,15 @@ create table Route( airline char(20), airline_id int, source_airport char(20), s
 mysqlimport --fields-terminated-by=, --local -u root -p dummy route.csv
 
 The original files obtained from the site correspond to the files with _original.csv. These files were then cleaned using the clean_csv_files.
+
+For constructing the train database:
+
+The train database has one table named train. Command for creating it:
+
+create table train (sentence varchar(200) unique, query varchar(200))
+
+For constructing the trialdb database:
+
+This is done through the django software. Make sure to have the MySQL settings as specified in the settings.py
+and then run "python manage.py migrate"
+

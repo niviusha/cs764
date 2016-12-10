@@ -12,16 +12,11 @@ from table_processor import TableOps
 from sentence_processing import SentenceOps
 
 class QueryGenerator:
-<<<<<<< HEAD
-  def __init__(self, sentence):
-    self.conn = MySQLConn(user='root', passwd='Madison123$', host='', db='flights')
-=======
   def __init__(self, sentence = None, conn = None):
     if conn == None:
       self.conn = MySQLConn(user='', passwd='', host='', db='')
     else:
       self.conn = conn
->>>>>>> refs/remotes/origin/master
     self.dbops = DatabaseOps(self.conn)
     self.tbops = TableOps(self.conn)
     self.sentops = SentenceOps(sentence)
@@ -189,8 +184,5 @@ def generate_query_and_print(sentence):
 if __name__ == "__main__":
     #generate_query_and_print("How many airports are there in US?")
     generate_query_and_print("What cities have airports in US?")
-<<<<<<< HEAD
     #generate_query_and_print("which airline have route from US to India?")
-=======
     # generate_query_and_print("How many airlines run in US?")
->>>>>>> refs/remotes/origin/master

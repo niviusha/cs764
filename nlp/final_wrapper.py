@@ -19,6 +19,11 @@ class Wrapper:
         return (query, result)
 
     @staticmethod
+    def result(sentence):
+        result = Wrapper.conn.execute_and_retreive_data(query)
+        return result
+
+    @staticmethod
     def train_sentence(sentence, query):
         Wrapper.trainer.train(sentence, query)
 

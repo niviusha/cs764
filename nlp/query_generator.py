@@ -5,6 +5,7 @@ generate a query
 from __future__ import print_function
 import sys
 sys.path.append("../database_parser")
+sys.path.append("../database_parser")
 from connect_to_mysql import MySQLConn
 from database_processor import DatabaseOps
 from table_processor import TableOps
@@ -12,7 +13,7 @@ from sentence_processing import SentenceOps
 
 class QueryGenerator:
   def __init__(self, sentence):
-    self.conn = MySQLConn(user='', passwd='', host='', db='')
+    self.conn = MySQLConn(user='root', passwd='Madison123$', host='', db='flights')
     self.dbops = DatabaseOps(self.conn)
     self.tbops = TableOps(self.conn)
     self.sentops = SentenceOps(sentence)
@@ -166,5 +167,5 @@ def generate_query_and_print(sentence):
 
 if __name__ == "__main__":
     #generate_query_and_print("How many airports are there in US?")
-    #generate_query_and_print("What cities have airports in US?")
-    generate_query_and_print("What airlines run in US?")
+    generate_query_and_print("What cities have airports in US?")
+    #generate_query_and_print("which airline have route from US to India?")

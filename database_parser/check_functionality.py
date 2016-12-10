@@ -11,7 +11,7 @@ import json
 
 if __name__ == '__main__':
   # checking the MySQL connection and Database Ops
-  conn = MySQLConn(user='', passwd='', host='', db='')
+  conn = MySQLConn(user='root', passwd='Madison123$', host='', db='flights')
   dbobj = DatabaseOps(conn)
   print(dbobj.get_all_databases())
   #dbobj.use_database('dummy')
@@ -27,7 +27,7 @@ if __name__ == '__main__':
   print(tbobj.get_distinct_column_data('app', 'django_migrations'))
 
   dbobj.use_database('dummy')
-  print(dbobj.get_context_dictionary())
+  print(dbobj.get_context_dmictionary())
   print(tbobj.get_constraints("Airport"))
   print(tbobj.get_primary_key("airport"))
   print(tbobj.get_foreign_key("route"))

@@ -2,7 +2,7 @@ from query_generator import QueryGenerator
 from sentence_trainer import Trainer
 from sys import exit, path
 path.append("../database_parser")
-from connect_to_mysql import MySQLConn
+from database_parser.connect_to_mysql import MySQLConn
 
 class Wrapper:
     conn = MySQLConn(user='', passwd='', host='', db='dummy')
@@ -19,7 +19,7 @@ class Wrapper:
         return (query, result)
 
     @staticmethod
-    def result(sentence):
+    def result(query):
         result = Wrapper.conn.execute_and_retreive_data(query)
         return result
 

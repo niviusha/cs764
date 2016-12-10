@@ -1,6 +1,6 @@
 from sys import path
 path.append("../nlp")
-from final_wrapper import Wrapper
+from nlp.final_wrapper import Wrapper
 from django.shortcuts import render, redirect
 from django.views.generic.base import TemplateView
 from forms import UserQuery, ReformQuery
@@ -32,6 +32,15 @@ def get_results(request):
     else:
         form = UserQuery(request.GET)
     return redirect("/user_query_input")
+
+
+def check_query(suggested_query):
+    result = Wrapper.result(suggested_query)
+    return render(request, 'userinteraction/result.html', {
+        'result': result,
+    })
+
+
 
 class ChatterBotAppView(TemplateView):
     template_name = "userinteraction/app.html"

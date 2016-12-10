@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
+from django.views.generic.base import TemplateView
 from forms import UserQuery
 
 
@@ -8,6 +9,7 @@ def get_query_form(request):
     return render(request, 'userinteraction/user_query_input.html', {
         'form': UserQuery(request.GET)
     })
+
 
 def get_results(request):
     # Checking if the form is correct and then proceeding
@@ -22,3 +24,7 @@ def get_results(request):
     return render(request, 'userinteraction/user_query_input.html', {
         'form': form
     })
+
+
+class ChatterBotAppView(TemplateView):
+    template_name = "userinteraction/app.html"

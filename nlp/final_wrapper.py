@@ -18,6 +18,11 @@ class Wrapper:
         result = Wrapper.conn.execute_and_retrieve_data(query)
         return (query, result)
 
+    def insert_train_data(self, dataList):
+        query = "INSERT INTO django_chatterbot_statement(text,extra_data) VALUES(%s, %s)"
+        Wrapper.conn.execute_insert_query(query,dataList)
+        return ()
+
     @staticmethod
     def result(query):
         result = Wrapper.conn.execute_and_retreive_data(query)

@@ -42,6 +42,17 @@ class MySQLConn:
         self.conn.rollback()
     return ()
 
+  #For Insert multiple rows
+  def execute_insert_query(self, Iquery, dataList):
+      cursor = self.conn.cursor()
+      try:
+          cursor.executemany(Iquery, dataList)
+          self.conn.commit()
+      except:
+          print("Exception occurred while executing the query: ", Iquery)
+          self.conn.rollback()
+      return ()
+
   def get_connection(self):
     return self.conn
 

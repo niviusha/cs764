@@ -34,13 +34,6 @@ def get_results(request):
         form = UserQuery(request.GET)
     return redirect("/user_query_input")
 
-
-def check_query(suggested_query):
-    result = Wrapper.result(suggested_query)
-    return render(request, 'userinteraction/result.html', {
-        'result': result,
-    })
-
 def get_chatterbot_view(request):
     return render(request, 'userinteraction/app.html', {
         'form': ChatterBotForm(request.GET)
@@ -54,7 +47,10 @@ def get_chatterbot_trainer(request):
             query = form.cleaned_data['query']
     if query != None and sentence != None:
         Wrapper.train_sentence(sentence, query)
-    return redirect("/user_query_input")
+    result = Wrapper.conn.execute_and_retrieve_data(query)
+    return render(request, 'userinteraction/checkResult.html', {
+        'result': result,
+    })
 
 def train_system(request):
   if request.method == 'POST':
